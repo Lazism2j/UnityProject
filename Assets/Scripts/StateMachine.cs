@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine : MonoBehaviour
+public class StateMachine
 {
     // 상태들을 가지고 있을 것이다.
     public Dictionary<EState, BaseState> stateDic;

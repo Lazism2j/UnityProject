@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    
+    public float rotateInterpolation;
     public StateMachine stateMachine;
     public Rigidbody rigid;
+
+    public Animal rideAnimal;
+    public Transform Gaze;
 
     private void Start()
     {
@@ -19,6 +22,16 @@ public class Player : MonoBehaviour
         stateMachine = new StateMachine();
         stateMachine.stateDic.Add(EState.Ride, new Player_Ride(this));
         stateMachine.stateDic.Add(EState.Jump, new Player_Jump(this));
-        stateMachine.curState = stateMachine.stateDic[EState.Idle];
+        stateMachine.curState = stateMachine.stateDic[EState.Ride];
+    }
+
+    private void Update()
+    {
+        stateMachine.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        stateMachine.FixedUpdate();
     }
 }
