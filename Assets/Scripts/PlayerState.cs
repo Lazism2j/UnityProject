@@ -71,7 +71,6 @@ public class Player_Jump : PlayerState
     public override void FixedUpdate() 
     {
         Vector3 noosePosition = player.transform.position + (player.rigid.transform.forward * player.transform.position.y) - Vector3.up * player.transform.position.y;
-        Debug.Log(noosePosition);
         player.noose.transform.position = noosePosition;
     }
     public override void Exit() 
