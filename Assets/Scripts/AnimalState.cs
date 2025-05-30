@@ -23,34 +23,44 @@ public class AnimalState : BaseState
 
 public class Animal_Ride : AnimalState
 {
-    
+
     public Animal_Ride(Animal _animal) : base(_animal)
     {
         this.animal = _animal;
     }
-    public override void Enter() 
+    public override void Enter()
     {
         animal.isRide = true;
         animal.ridePlayer.rideAnimal = animal;
+        animal.progressTime = 0;
     }
-    public override void Update() 
+    public override void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animal.stateMachine.ChangeState(animal.stateMachine.stateDic[EState.Idle]);
         }
+        if (animal.progressTime > animal.angryTime) 
+        {
+            animal.isAngry = true;
+            animal.stateMachine.ChangeState(animal.stateMachine.stateDic[EState.Angry]);
+        }
     }
 
 
-    public override void FixedUpdate() 
+    public override void FixedUpdate()
     {
         animal.transform.LookAt(animal.ridePlayer.Gaze);
         animal.rigid.velocity = animal.transform.forward * animal.rideSpeed;
+        animal.progressTime += Time.deltaTime;
     }
-    public override void Exit() 
+    public override void Exit()
     {
-        animal.isRide = false;
-        animal.ridePlayer = null;
+        if (!animal.isAngry) 
+        {
+            animal.isRide = false;
+            animal.ridePlayer = null;
+        } 
     }
 }
 
@@ -75,9 +85,23 @@ public class Animal_Angry : AnimalState
         this.animal = _animal;
     }
     public override void Enter() { }
-    public override void Update() { }
+    public override void Update() 
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            animal.stateMachine.ChangeState(animal.stateMachine.stateDic[EState.Idle]);
+        }
+    }
 
 
-    public override void FixedUpdate() { }
-    public override void Exit() { }
+    public override void FixedUpdate() 
+    {
+        animal.transform.LookAt(animal.ridePlayer.Gaze);
+        animal.rigid.velocity = animal.transform.forward * animal.rideSpeed;
+    }
+    public override void Exit() 
+    {
+        animal.isRide = false;
+        animal.ridePlayer = null;
+    }
 }

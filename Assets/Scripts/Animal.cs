@@ -11,6 +11,9 @@ public class Animal : MonoBehaviour
     [SerializeField] public float idleSpeed;
     [SerializeField] public float rideSpeed;
     [SerializeField] public float jumpPower;
+    [SerializeField] public float angryTime;
+
+    public float progressTime;
     public bool isAngry;
     public bool isRide;
     public bool canEat;
