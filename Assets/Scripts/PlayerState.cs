@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerState : BaseState
@@ -62,11 +63,19 @@ public class Player_Jump : PlayerState
     }
     public override void Enter() 
     {
-        
+        player.noose.SetActive(true);
     }
     public override void Update() { }
 
 
-    public override void FixedUpdate() { }
-    public override void Exit() { }
+    public override void FixedUpdate() 
+    {
+        Vector3 noosePosition = player.transform.position + (player.rigid.transform.forward * player.transform.position.y) - Vector3.up * player.transform.position.y;
+        Debug.Log(noosePosition);
+        player.noose.transform.position = noosePosition;
+    }
+    public override void Exit() 
+    {
+        player.noose.SetActive(false);
+    }
 }

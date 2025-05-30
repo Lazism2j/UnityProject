@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     public Animal rideAnimal;
     public Transform Gaze;
+    public GameObject noose;
 
     private void Start()
     {
