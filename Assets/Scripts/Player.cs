@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float rotateInterpolation;
+    public float jumpSpeed;    
     public StateMachine stateMachine;
     public Rigidbody rigid;
 

@@ -26,7 +26,7 @@ public class Player_Ride : PlayerState
     }
     public override void Enter() 
     {
-        
+        player.rigid.useGravity = false;
     }
     public override void Update() 
     {
@@ -47,8 +47,9 @@ public class Player_Ride : PlayerState
     }
     public override void Exit() 
     {
-        Debug.Log(player.transform.forward * player.rideAnimal.rideSpeed + Vector3.up * player.rideAnimal.jumpPower);
-        player.rigid.AddForce(player.transform.forward * player.rideAnimal.rideSpeed + Vector3.up * player.rideAnimal.jumpPower, ForceMode.Impulse);
+        player.rigid.useGravity = true;
+        Vector3 jumpVector = player.transform.forward * player.jumpSpeed + Vector3.up * player.rideAnimal.jumpPower;
+        player.rigid.AddForce(jumpVector, ForceMode.Impulse);
         player.rideAnimal = null;   
     }
 }
