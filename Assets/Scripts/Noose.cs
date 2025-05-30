@@ -28,7 +28,9 @@ public class Noose : MonoBehaviour
     {
         targets = Physics.OverlapSphere(transform.position, radius, animal);
         if (targets.Length > 0)
+        {
             return targets[0];
+        }
         return null;
     }
 

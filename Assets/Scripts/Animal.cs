@@ -69,4 +69,10 @@ public class Animal : MonoBehaviour
 
         }
     }
+
+    public void Ride(Player player)
+    {
+        ridePlayer = player;
+        stateMachine.ChangeState(stateMachine.stateDic[EState.Ride]);
+    }
 }

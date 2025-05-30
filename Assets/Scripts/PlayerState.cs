@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerState : BaseState
@@ -28,6 +29,7 @@ public class Player_Ride : PlayerState
     public override void Enter() 
     {
         player.rigid.useGravity = false;
+        player.rideAnimal.ridePlayer = player;
     }
     public override void Update() 
     {
@@ -49,8 +51,10 @@ public class Player_Ride : PlayerState
     public override void Exit() 
     {
         player.rigid.useGravity = true;
-        Vector3 jumpVector = player.transform.forward * player.jumpSpeed + Vector3.up * player.rideAnimal.jumpPower;
-        player.rigid.AddForce(jumpVector, ForceMode.Impulse);
+        // Vector3 jumpVector = player.transform.forward * player.jumpSpeed + Vector3.up * player.rideAnimal.jumpPower;
+        
+        player.rigid.AddForce(Vector3.up * player.rideAnimal.jumpPower, ForceMode.Impulse);
+        player.rigid.AddForce(player.transform.forward * player.jumpSpeed, ForceMode.Impulse);
         player.rideAnimal = null;   
     }
 }
@@ -63,9 +67,24 @@ public class Player_Jump : PlayerState
     }
     public override void Enter() 
     {
-        player.noose.SetActive(true);
+        player.noose.gameObject.SetActive(true);
     }
-    public override void Update() { }
+    public override void Update() 
+    {
+        if (player.noose.target != null)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                player.rideAnimal = player.noose.target.GetComponentInParent<Animal>();
+                if (player.rideAnimal != null)
+                {
+                    player.rideAnimal.Ride(player);
+                    player.stateMachine.ChangeState(player.stateMachine.stateDic[EState.Ride]);
+                }
+
+            }
+        }
+    }
 
 
     public override void FixedUpdate() 
@@ -75,6 +94,6 @@ public class Player_Jump : PlayerState
     }
     public override void Exit() 
     {
-        player.noose.SetActive(false);
+        player.noose.gameObject.SetActive(false);
     }
 }

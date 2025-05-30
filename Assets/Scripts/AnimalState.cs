@@ -46,7 +46,6 @@ public class Animal_Ride : AnimalState
     {
         animal.transform.LookAt(animal.ridePlayer.Gaze);
         animal.rigid.velocity = animal.transform.forward * animal.rideSpeed;
-        Debug.Log(animal.rigid.velocity);
     }
     public override void Exit() 
     {
