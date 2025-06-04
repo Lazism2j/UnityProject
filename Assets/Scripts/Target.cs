@@ -12,7 +12,6 @@ public class Target : MonoBehaviour
        // Debug.Log(this.gameObject, other.gameObject);
         
             Animal InAnimal = other.GetComponent<Animal>();
-            Debug.Log(InAnimal);
             if (InAnimal != null)
             {
                 InAnimal.target = nextTarget;

@@ -71,7 +71,8 @@ public class Animal : MonoBehaviour
             if (collision.gameObject.CompareTag("Obstacle") || 
                 collision.gameObject.CompareTag("Animal"))
             {
-                // gameOver = true;
+                Debug.Log(collision.gameObject);
+                GameManager.Instance.GameOver();
             }
 
 
