@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,8 +11,10 @@ public class Player : MonoBehaviour
     public Rigidbody rigid;
 
     public Animal rideAnimal;
+    public Animal defaultAnimal;
     public Transform Gaze;
     public Noose noose;
+    public bool isJump;
 
     private void Start()
     {
@@ -27,6 +30,11 @@ public class Player : MonoBehaviour
         stateMachine.curState = stateMachine.stateDic[EState.Ride];
     }
 
+    private void OnEnable()
+    {
+        stateMachine.curState = stateMachine.stateDic[EState.Ride];
+    }
+
     private void Update()
     {
         stateMachine.Update();
@@ -35,5 +43,15 @@ public class Player : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.FixedUpdate();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isJump)
+        {
+            
+            GameManager.Instance.GameOver();
+            stateMachine.ChangeState(stateMachine.stateDic[EState.Ride]);
+        }
     }
 }

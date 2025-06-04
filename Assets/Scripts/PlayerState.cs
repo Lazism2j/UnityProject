@@ -67,6 +67,7 @@ public class Player_Jump : PlayerState
     }
     public override void Enter() 
     {
+        player.isJump = true;
         player.noose.gameObject.SetActive(true);
     }
     public override void Update() 
@@ -94,6 +95,7 @@ public class Player_Jump : PlayerState
     }
     public override void Exit() 
     {
+        player.isJump = false;
         player.noose.gameObject.SetActive(false);
     }
 }

@@ -37,11 +37,13 @@ public class GameManager : MonoBehaviour
     {
         player.gameObject.SetActive(false);
         startPanel.gameObject.SetActive(true);
+        endPanel.gameObject.SetActive(false);
     }
 
     public void GameStart()
     {
         player.gameObject.SetActive(true);
+        player.rideAnimal = player.defaultAnimal;
         player.rideAnimal.transform.localPosition = startTransform.position;
         player.rideAnimal.Ride(player);
         startPanel.gameObject.SetActive(false);
