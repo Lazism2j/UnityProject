@@ -8,6 +8,7 @@ public class Animal : MonoBehaviour
     public StateMachine stateMachine;
     public Rigidbody rigid;
     public Player ridePlayer;
+    public Animator animator;
     public NavMeshAgent navMeshAgent;
     public Transform target;
 
@@ -23,10 +24,14 @@ public class Animal : MonoBehaviour
     public bool canThrow;
     public Transform saddle;
 
+    public readonly int Idle_HASH = Animator.StringToHash("Idle");
+    public readonly int Ride_HASH = Animator.StringToHash("Ride");
+
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
         StateMachineInit();
+        animator = GetComponent<Animator>();    
         navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
@@ -71,8 +76,8 @@ public class Animal : MonoBehaviour
             if (collision.gameObject.CompareTag("Obstacle") || 
                 collision.gameObject.CompareTag("Animal"))
             {
-                Debug.Log(collision.gameObject);
                 GameManager.Instance.GameOver();
+                stateMachine.ChangeState(stateMachine.stateDic[EState.Idle]);
             }
 
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Video;
 
 public class AnimalState : BaseState
@@ -33,6 +34,8 @@ public class Animal_Ride : AnimalState
     public Animal_Ride(Animal _animal) : base(_animal)
     {
         this.animal = _animal;
+        animal.animator.Play(animal.Ride_HASH);
+        
     }
     public override void Enter()
     {
@@ -76,7 +79,11 @@ public class Animal_Idle : AnimalState
     {
         this.animal = _animal;
     }
-    public override void Enter() { }
+    public override void Enter() 
+    {
+        animal.animator.Play(animal.Idle_HASH);
+        animal.navMeshAgent.enabled = true;
+    }
     public override void Update() { }
 
 
@@ -84,7 +91,10 @@ public class Animal_Idle : AnimalState
     {
         animal.navMeshAgent.SetDestination(animal.target.position);
     }
-    public override void Exit() { }
+    public override void Exit() 
+    {
+        animal.navMeshAgent.enabled = false;
+    }
 }
 
 public class Animal_Angry : AnimalState
