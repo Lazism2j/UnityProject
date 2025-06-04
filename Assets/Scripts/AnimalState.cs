@@ -10,12 +10,18 @@ public class AnimalState : BaseState
     {
         animal = _animal;
     }
-    public override void Enter() { }
-    public override void Update() { }
+    public override void Enter() 
+    {
+        
+    }
+    public override void Update() 
+    {
+        
+    }
 
 
     public override void FixedUpdate() 
-    { 
+    {
         
     }
     public override void Exit() { }
@@ -74,7 +80,10 @@ public class Animal_Idle : AnimalState
     public override void Update() { }
 
 
-    public override void FixedUpdate() { }
+    public override void FixedUpdate() 
+    {
+        animal.navMeshAgent.SetDestination(animal.target.position);
+    }
     public override void Exit() { }
 }
 

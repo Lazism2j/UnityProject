@@ -1,28 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Animal : MonoBehaviour
 {
     public StateMachine stateMachine;
     public Rigidbody rigid;
     public Player ridePlayer;
+    public NavMeshAgent navMeshAgent;
+    public Transform target;
 
     [SerializeField] public float idleSpeed;
     [SerializeField] public float rideSpeed;
     [SerializeField] public float jumpPower;
     [SerializeField] public float angryTime;
-
     public float progressTime;
+
     public bool isAngry;
     public bool isRide;
     public bool canEat;
+    public bool canThrow;
     public Transform saddle;
 
     private void Start()
     {
         rigid = GetComponent<Rigidbody>();
         StateMachineInit();
+        navMeshAgent = GetComponent<NavMeshAgent>();
     }
 
     private void StateMachineInit()
